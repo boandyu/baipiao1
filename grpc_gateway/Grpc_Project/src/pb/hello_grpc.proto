@@ -1,0 +1,14 @@
+syntax = "proto3";
+option go_package = "./;hello_grpc";
+package hello_grpc;
+
+message Req {
+  string name = 1;
+}
+message Res {
+  string name = 1;
+}
+service HelloRPC {
+  rpc SayHello(Req) returns(Res){};
+}
+

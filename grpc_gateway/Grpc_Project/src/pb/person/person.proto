@@ -1,0 +1,28 @@
+syntax = "proto3";
+package person;
+option go_package = "GrpcDemo/pb/person;person";
+import "google/api/annotations.proto";
+
+message Person {
+  string name = 1;
+  int32 age = 2;
+  Student stu = 3;
+}
+message Student {
+  string name = 1;
+  int32 age = 2;
+  string addr = 3;
+}
+/*
+  我们可以在message里用 oneof 来包裹某个段落，在这个作用域中，所有的值被设置过来其他的值会被清空
+  它不可以被 repeated (不能是数组)
+ */
+
+service SearchService {
+  rpc Search(Person) returns(Person){
+    option(google.api.http) = {
+      post:"/api/person",
+      body: "*"
+    };
+  }; // 传统的即可响应
+}
